@@ -9,13 +9,17 @@
   "scripts": {
     "dev": "npm run dev --workspace=apps/web",
     "dev:server": "npm run dev --workspace=apps/server",
-    "build": "npm run build --workspace=apps/web",
-    "build:server": "npm run build --workspace=apps/server",
+    "build": "npm run build --workspace=packages/shared && npm run build --workspace=apps/web && npm run build --workspace=apps/server",
+    "build:server": "npm run build --workspace=packages/shared && npm run build --workspace=apps/server",
     "type-check": "npm run type-check --workspaces",
     "lint": "npm run lint --workspaces"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/helmet": "^0.0.48",
+    "@types/nodemailer": "^6.4.12",
     "typescript": "^5.7.0"
   },
   "dependencies": {

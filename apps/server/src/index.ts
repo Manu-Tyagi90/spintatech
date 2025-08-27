@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express';
 import cors from 'cors'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
@@ -55,6 +55,10 @@ app.use('/api/contact', contactRoutes)
 
 // Error handling middleware
 app.use(errorHandler)
+
+app.get('/api/health', (req: Request, res: Response) => {
+  res.json({ status: 'OK' });
+});
 
 // 404 handler
 app.use('*', (req, res) => {

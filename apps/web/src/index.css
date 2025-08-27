@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* Shadcn UI styles (if any) */
 :root {
   --primary: #0A2540;
   --secondary: #F6F9FC;
