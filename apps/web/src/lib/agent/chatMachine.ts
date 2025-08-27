@@ -81,8 +81,7 @@ export const chatMachine = createMachine({
           })
         },
         RESET_CHAT: {
-          actions: assign((ctx: any, evt: any) => {
-            // evt may be undefined, but we don't use it here
+          actions: assign((ctx: any, _evt: any) => {
             return {
               messages: [
                 {

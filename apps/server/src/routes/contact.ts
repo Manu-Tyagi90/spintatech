@@ -15,7 +15,7 @@ const contactLimiter = rateLimit({
 })
 
 // Routes
-router.post('/', contactLimiter, createContact)
+router.post('/', (req: any, res: any, next: any) => contactLimiter(req, res, next), createContact)
 router.get('/', getContacts) // This would be protected in production
 
 export default router
