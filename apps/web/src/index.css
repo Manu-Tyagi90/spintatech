@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #0A2540;
+  --secondary: #F6F9FC;
+  --accent: #00C49A;
+  --dark: #1a1a1a;
+  --light: #ffffff;
+}
+
+/* Custom scrollbar for chat */
+.chat-messages::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 2px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

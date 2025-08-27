@@ -1,0 +1,105 @@
+{
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "industries": "Industries",
+    "about": "About",
+    "careers": "Careers",
+    "insights": "Insights",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Engineering Digital Excellence",
+    "subtitle": "Transforming businesses through innovative technology solutions and deep industry expertise",
+    "cta_primary": "Get Started",
+    "cta_secondary": "Learn More"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive technology solutions for modern enterprises",
+    "cloud_devops": {
+      "title": "Cloud & DevOps",
+      "description": "Accelerate your digital transformation with cloud migration, infrastructure management, and CI/CD automation.",
+      "keywords": "Cloud Solutions, DevOps, Kubernetes, AWS, Azure, GCP"
+    },
+    "data_ai": {
+      "title": "Data & AI",
+      "description": "Unlock the power of your data with advanced analytics, business intelligence, and machine learning solutions.",
+      "keywords": "Data Analytics, AI/ML, Business Intelligence, Big Data"
+    },
+    "digital_transformation": {
+      "title": "Digital Transformation",
+      "description": "Modernize your business processes with enterprise application development and digital strategy consulting.",
+      "keywords": "Digital Transformation, Enterprise Software, Process Automation"
+    },
+    "cybersecurity": {
+      "title": "Cybersecurity",
+      "description": "Protect your digital assets with comprehensive security audits, threat management, and compliance consulting.",
+      "keywords": "Cybersecurity, Information Security, Compliance, Risk Management"
+    },
+    "enterprise_solutions": {
+      "title": "Enterprise Solutions",
+      "description": "Streamline operations with ERP & CRM implementation, SAP, and Salesforce customization.",
+      "keywords": "Enterprise Solutions, ERP, CRM, SAP, Salesforce"
+    }
+  },
+  "industries": {
+    "title": "Industries We Serve",
+    "subtitle": "Specialized solutions for diverse industry verticals",
+    "bfsi": {
+      "title": "Banking & Financial Services",
+      "description": "Secure fintech solutions and transaction platforms for the financial sector."
+    },
+    "healthcare": {
+      "title": "Healthcare & Life Sciences",
+      "description": "Digital health records and compliance solutions for healthcare providers."
+    },
+    "retail": {
+      "title": "Retail & E-commerce",
+      "description": "Omnichannel experiences and supply chain optimization for retail businesses."
+    },
+    "manufacturing": {
+      "title": "Manufacturing",
+      "description": "Industrial IoT and smart factory solutions for modern manufacturing."
+    }
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Ready to transform your business? Let's discuss your project.",
+    "form": {
+      "name": "Full Name",
+      "name_placeholder": "Enter your full name",
+      "email": "Email Address",
+      "email_placeholder": "Enter your email address",
+      "company": "Company (Optional)",
+      "company_placeholder": "Enter your company name",
+      "message": "Message",
+      "message_placeholder": "Tell us about your project requirements...",
+      "consent": "I agree to the privacy policy and terms of service",
+      "submit": "Send Message",
+      "submitting": "Sending..."
+    },
+    "success": "Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.",
+    "error": "Sorry, there was an error sending your message. Please try again."
+  },
+  "footer": {
+    "tagline": "Engineering Digital Excellence",
+    "description": "Transforming businesses through innovative technology solutions and deep industry expertise.",
+    "quick_links": "Quick Links",
+    "services_links": "Services",
+    "contact_info": "Contact Information",
+    "email": "contact@spintatech.com",
+    "phone": "+91 20 1234 5678",
+    "address": "Pune, Maharashtra, India",
+    "copyright": "© 2024 Spintatech Services. All rights reserved."
+  },
+  "chat": {
+    "welcome": "Hello! I'm here to help you learn about Spintatech Services. How can I assist you today?",
+    "placeholder": "Type your message...",
+    "send": "Send",
+    "thinking": "Thinking...",
+    "error": "Sorry, I encountered an error. Please try again.",
+    "fallback": "I'm not sure about that. Would you like me to connect you with our team?",
+    "contact_team": "Contact Our Team"
+  }
+}
