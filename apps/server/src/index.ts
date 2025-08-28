@@ -30,9 +30,9 @@ const connectDB = async () => {
 // Middleware
 app.use(helmet())
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
+  origin: process.env.NODE_ENV === 'production'
     ? ['https://spintatech.com', 'https://www.spintatech.com']
-    : ['http://localhost:3000'],
+    : ['http://localhost:3000', 'http://localhost:5173'], // include Vite default dev origin
   credentials: true
 }))
 app.use(express.json({ limit: '10mb' }))
@@ -77,3 +77,10 @@ const startServer = async () => {
 }
 
 startServer()
+
+// Ensure unhandled promise rejections are logged and exit to avoid silent failures in production
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason)
+  // in production you may want to perform graceful shutdown here
+  process.exit(1)
+})

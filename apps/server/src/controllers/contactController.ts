@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import Contact from '../models/Contact.js'
-import { sendContactEmail } from '../utils/emailService'
 import { contactFormSchema } from '@spintatech/shared'
+import { ZodError } from 'zod' // <--- add ZodError import
 
 export const createContact = async (req: Request, res: Response) => {
   // Honeypot check: if the hidden field is filled, it's a bot
@@ -21,14 +21,6 @@ export const createContact = async (req: Request, res: Response) => {
     
     await contact.save()
     
-    // Send notification emails
-    try {
-      await sendContactEmail(contact, validatedData.locale ?? "en")
-    } catch (emailError) {
-      console.error('Email sending failed:', emailError)
-      // Don't fail the request if email fails
-    }
-    
     res.status(201).json({
       success: true,
       message: validatedData.locale === 'hi' 
@@ -44,7 +36,8 @@ export const createContact = async (req: Request, res: Response) => {
   } catch (error: any) {
     console.error('Contact creation error:', error)
     
-    if (error.name === 'ZodError') {
+    // use instanceof for ZodError detection
+    if (error instanceof ZodError) {
       return res.status(400).json({
         success: false,
         message: 'Validation error',
