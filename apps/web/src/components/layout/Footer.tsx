@@ -21,29 +21,35 @@ export default function Footer() {
   ]
   
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="bg-gradient-to-b from-gray-900 to-black text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
-          <div className="lg:col-span-2">
-            <div className="text-2xl font-bold mb-4">Spintatech</div>
-            <p className="text-gray-300 mb-4 max-w-md">
+          <div className="lg:col-span-2 text-center md:text-left">
+            <div className="inline-block">
+              <div className="text-3xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                Spintatech
+              </div>
+            </div>
+            <p className="text-gray-400 mb-6 max-w-md mx-auto md:mx-0 text-sm sm:text-base leading-relaxed">
               {t('footer.description')}
             </p>
-            <div className="text-accent font-semibold">
+            <div className="text-accent font-semibold text-lg animate-pulse">
               {t('footer.tagline')}
             </div>
           </div>
           
           {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">{t('footer.quick_links')}</h3>
-            <ul className="space-y-2">
+          <div className="text-center md:text-left">
+            <h3 className="text-lg font-semibold mb-4 text-gray-100 border-b border-gray-800 pb-2 inline-block">
+              {t('footer.quick_links')}
+            </h3>
+            <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-gray-300 hover:text-white transition-colors"
+                    className="text-gray-400 hover:text-accent transition-all duration-300 hover:translate-x-1 inline-block text-sm sm:text-base"
                   >
                     {link.name}
                   </Link>
@@ -53,14 +59,16 @@ export default function Footer() {
           </div>
           
           {/* Services Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">{t('footer.services_links')}</h3>
-            <ul className="space-y-2">
+          <div className="text-center md:text-left">
+            <h3 className="text-lg font-semibold mb-4 text-gray-100 border-b border-gray-800 pb-2 inline-block">
+              {t('footer.services_links')}
+            </h3>
+            <ul className="space-y-3">
               {serviceLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-gray-300 hover:text-white transition-colors"
+                    className="text-gray-400 hover:text-accent transition-all duration-300 hover:translate-x-1 inline-block text-sm sm:text-base"
                   >
                     {link.name}
                   </Link>
@@ -71,24 +79,36 @@ export default function Footer() {
         </div>
         
         {/* Contact Info */}
-        <div className="mt-8 pt-8 border-t border-gray-800">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div className="flex items-center space-x-3">
-              <Mail className="h-5 w-5 text-accent" />
-              <span className="text-gray-300">{t('footer.email')}</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <Phone className="h-5 w-5 text-accent" />
-              <span className="text-gray-300">{t('footer.phone')}</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <MapPin className="h-5 w-5 text-accent" />
-              <span className="text-gray-300">{t('footer.address')}</span>
+        <div className="mt-12 pt-8 border-t border-gray-800">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <a 
+              href={`mailto:${t('footer.email')}`}
+              className="flex items-center justify-center sm:justify-start space-x-3 group hover:text-accent transition-colors duration-300"
+            >
+              <div className="p-2 bg-gray-800 rounded-full group-hover:bg-accent/20 transition-colors duration-300">
+                <Mail className="h-5 w-5 text-accent" />
+              </div>
+              <span className="text-gray-300 text-sm sm:text-base">{t('footer.email')}</span>
+            </a>
+            <a 
+              href={`tel:${t('footer.phone')}`}
+              className="flex items-center justify-center sm:justify-start space-x-3 group hover:text-accent transition-colors duration-300"
+            >
+              <div className="p-2 bg-gray-800 rounded-full group-hover:bg-accent/20 transition-colors duration-300">
+                <Phone className="h-5 w-5 text-accent" />
+              </div>
+              <span className="text-gray-300 text-sm sm:text-base">{t('footer.phone')}</span>
+            </a>
+            <div className="flex items-center justify-center sm:justify-start space-x-3 group">
+              <div className="p-2 bg-gray-800 rounded-full">
+                <MapPin className="h-5 w-5 text-accent" />
+              </div>
+              <span className="text-gray-300 text-sm sm:text-base">{t('footer.address')}</span>
             </div>
           </div>
           
           {/* Copyright */}
-          <div className="text-center text-gray-400 text-sm">
+          <div className="text-center text-gray-500 text-xs sm:text-sm pt-4 border-t border-gray-800/50">
             {t('footer.copyright')}
           </div>
         </div>
