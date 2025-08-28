@@ -9,6 +9,7 @@ import jobRoutes from './routes/jobs'
 import adminRoutes from './routes/admin'
 import { errorHandler } from './middleware/errorHandler'
 import clientRoutes from './routes/client'
+import type { Request, Response } from 'express' // added types
 
 
 dotenv.config()
@@ -47,7 +48,7 @@ const limiter = rateLimit({
 app.use('/api', limiter)
 
 // Routes
-app.get('/api/health', (req, res) => {
+app.get('/api/health', (req: Request, res: Response) => {
   res.json({ 
     status: 'OK', 
     message: 'Spintatech Server is running',
@@ -63,7 +64,7 @@ app.use('/api/client', clientRoutes)
 app.use(errorHandler)
 
 // 404 handler (should be last)
-app.use('*', (req, res) => {
+app.use('*', (req: Request, res: Response) => {
   res.status(404).json({ message: 'Route not found' })
 })
 
@@ -79,7 +80,7 @@ const startServer = async () => {
 startServer()
 
 // Ensure unhandled promise rejections are logged and exit to avoid silent failures in production
-process.on('unhandledRejection', (reason, promise) => {
+process.on('unhandledRejection', (reason: unknown, promise: Promise<any>) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason)
   // in production you may want to perform graceful shutdown here
   process.exit(1)
