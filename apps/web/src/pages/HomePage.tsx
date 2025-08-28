@@ -14,10 +14,174 @@ import {
   Factory
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+
+// Custom hook for animated counter
+function useCountUp(end: number, duration: number = 2000, startCounting: boolean = false) {
+  const [count, setCount] = useState(0)
+  const countRef = useRef<number | null>(null)
+  
+  useEffect(() => {
+    if (!startCounting) return
+    
+    const startTime = Date.now()
+    const startValue = 0
+    
+    const updateCount = () => {
+      const now = Date.now()
+      const progress = Math.min((now - startTime) / duration, 1)
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
+      const currentCount = startValue + (end - startValue) * easeOutQuart
+      
+      setCount(currentCount)
+      
+      if (progress < 1) {
+        countRef.current = requestAnimationFrame(updateCount)
+      } else {
+        setCount(end)
+      }
+    }
+    
+    countRef.current = requestAnimationFrame(updateCount)
+    
+    return () => {
+      if (countRef.current !== null) {
+        cancelAnimationFrame(countRef.current)
+      }
+    }
+  }, [end, duration, startCounting])
+  
+  return Math.floor(count)
+}
+
+// Custom hook to detect when element is in viewport
+function useInView(threshold: number = 0.1) {
+  const [isInView, setIsInView] = useState(false)
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const ref = useRef<HTMLElement | null>(null)
+  
+  useEffect(() => {
+    const currentRef = ref.current
+    if (!currentRef || typeof IntersectionObserver === 'undefined') {
+      // Fallback for browsers that don't support IntersectionObserver
+      setIsInView(true)
+      setHasAnimated(true)
+      return
+    }
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry?.isIntersecting && !hasAnimated) {
+          setIsInView(true)
+          setHasAnimated(true)
+          observer.unobserve(currentRef)
+        }
+      },
+      { threshold }
+    )
+    
+    observer.observe(currentRef)
+    
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef)
+      }
+    }
+  }, [threshold, hasAnimated])
+  
+  return [ref, isInView] as const
+}
+
+// Animated stat component
+interface AnimatedStatProps {
+  readonly number: string
+  readonly label: string
+  readonly suffix?: string
+  readonly isInView: boolean
+}
+
+function AnimatedStat({ number, label, suffix = '', isInView }: AnimatedStatProps) {
+  const numericValue = parseInt(number.toString().replace(/\D/g, ''))
+  const count = useCountUp(numericValue, 2000, isInView)
+  
+  return (
+    <div className="text-center group hover:scale-105 transition-transform duration-300">
+      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-2">
+        {count}{suffix}
+      </div>
+      <div className="text-sm sm:text-base text-gray-600">{label}</div>
+    </div>
+  )
+}
+
+// Service Card Component
+interface ServiceCardProps {
+  readonly service: { key: string; icon: any }
+  readonly t: (key: string) => string
+  readonly index: number
+}
+
+function ServiceCard({ service, t, index }: ServiceCardProps) {
+  const Icon = service.icon
+  
+  return (
+    <div 
+      key={`${service.key}-${index}`}
+      className="carousel-item flex-none w-72 sm:w-80 group bg-white p-6 sm:p-8 rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 hover:z-20 relative"
+    >
+      <div className="w-14 h-14 sm:w-16 sm:h-16 mb-4 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+        <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />
+      </div>
+      <h3 className="text-lg sm:text-xl font-semibold mb-3 text-gray-900">
+        {t(`services.${service.key}.title`)}
+      </h3>
+      <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-3">
+        {t(`services.${service.key}.description`)}
+      </p>
+      <div className="text-xs sm:text-sm text-gray-500 italic">
+        {t(`services.${service.key}.keywords`)}
+      </div>
+    </div>
+  )
+}
+
+// Infinite Services Carousel Component
+interface ServiceCarouselProps {
+  readonly services: Array<{ key: string; icon: any }>
+  readonly t: (key: string) => string
+}
+
+function ServiceCarousel({ services, t }: ServiceCarouselProps) {
+  // Create enough duplicates for seamless infinite scroll
+  const duplicatedServices = [...services, ...services, ...services, ...services]
+  
+  return (
+    <div className="w-full overflow-hidden relative">
+      {/* Gradient overlays for smooth edges */}
+      <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+      
+      <div className="carousel-track flex gap-6 sm:gap-8 py-8">
+        {duplicatedServices.map((service, index) => (
+          <ServiceCard 
+            key={`${service.key}-${index}`}
+            service={service} 
+            t={t} 
+            index={index} 
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function HomePage() {
   const { t, i18n } = useTranslation()
   const currentLang = i18n.language || 'en'
+  const [statsRef, statsInView] = useInView(0.3)
 
   const services = [
     { key: 'cloud_devops', icon: Cloud },
@@ -35,10 +199,10 @@ export default function HomePage() {
   ]
 
   const stats = [
-    { number: '50+', label: 'Projects Delivered' },
-    { number: '25+', label: 'Happy Clients' },
-    { number: '5+', label: 'Years Experience' },
-    { number: '99%', label: 'Client Satisfaction' }
+    { number: '50', label: 'Projects Delivered', suffix: '+' },
+    { number: '25', label: 'Happy Clients', suffix: '+' },
+    { number: '5', label: 'Years Experience', suffix: '+' },
+    { number: '99', label: 'Client Satisfaction', suffix: '%' }
   ]
 
   return (
@@ -94,27 +258,24 @@ export default function HomePage() {
           </div>
         </section>
         
-        {/* Stats Section */}
-        <section className="py-12 sm:py-16 bg-gradient-to-b from-gray-50 to-white">
+        {/* Stats Section with Animation */}
+        <section className="py-12 sm:py-16 bg-gradient-to-b from-gray-50 to-white" ref={statsRef}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-              {stats.map((stat, index) => (
-                <div 
-                  key={stat.label} 
-                  className="text-center group hover:scale-105 transition-transform duration-300"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="text-sm sm:text-base text-gray-600">{stat.label}</div>
-                </div>
+              {stats.map((stat) => (
+                <AnimatedStat
+                  key={stat.label}
+                  number={stat.number}
+                  label={stat.label}
+                  suffix={stat.suffix}
+                  isInView={statsInView}
+                />
               ))}
             </div>
           </div>
         </section>
         
-        {/* Services Section */}
+        {/* Services Carousel Section */}
         <section className="py-16 sm:py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
@@ -126,31 +287,7 @@ export default function HomePage() {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {services.map((service, index) => {
-                const Icon = service.icon
-                return (
-                  <div 
-                    key={service.key} 
-                    className="group bg-white p-6 sm:p-8 rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 mb-4 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                      <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-semibold mb-3 text-gray-900">
-                      {t(`services.${service.key}.title`)}
-                    </h3>
-                    <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-3">
-                      {t(`services.${service.key}.description`)}
-                    </p>
-                    <div className="text-xs sm:text-sm text-gray-500 italic">
-                      {t(`services.${service.key}.keywords`)}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
+            <ServiceCarousel services={services} t={t} />
             
             <div className="text-center mt-10 sm:mt-12">
               <Button 
@@ -159,7 +296,7 @@ export default function HomePage() {
                 className="group hover:scale-105 transition-all duration-300 shadow-lg"
               >
                 <Link to={`/${currentLang}/services`}>
-                  View All Services
+                  {t('common.viewAllServices', 'View All Services')}
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>

@@ -11,28 +11,36 @@ export default function MenuChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [state, send] = useMachine(menuChatMachine)
   const [overFooter, setOverFooter] = useState(false)
-  const chatBtnRef = useRef<HTMLButtonElement>(null)
+  const chatBtnRef = useRef<HTMLDivElement>(null)
   const footerRef = useRef<HTMLElement | null>(null)
 
   // Find the current node, fallback to the first node if not found
   const node = chatFlow.find((n: any) => n.id === state.context.currentNodeId) || chatFlow[0]
   const lang = state.context.locale || (i18n.language as 'en' | 'hi') || 'en'
 
-  // Intersection Observer to detect overlap with footer
+  // Only for minimized button, check if over footer
   useEffect(() => {
     footerRef.current = document.querySelector('footer')
     if (!chatBtnRef.current || !footerRef.current) return
 
-    const observer = new window.IntersectionObserver(
-      (entries) => setOverFooter(entries[0]?.isIntersecting ?? false),
-      {
-        root: null,
-        threshold: 0.1
-      }
-    )
-    observer.observe(footerRef.current)
-    return () => observer.disconnect()
-  }, [])
+    const checkOverlap = () => {
+      const btnRect = chatBtnRef.current!.getBoundingClientRect()
+      const footerRect = footerRef.current!.getBoundingClientRect()
+      setOverFooter(
+        btnRect.bottom > footerRect.top &&
+        btnRect.right > footerRect.left
+      )
+    }
+
+    window.addEventListener('scroll', checkOverlap)
+    window.addEventListener('resize', checkOverlap)
+    checkOverlap()
+
+    return () => {
+      window.removeEventListener('scroll', checkOverlap)
+      window.removeEventListener('resize', checkOverlap)
+    }
+  }, [isOpen])
 
   const handleOptionClick = (next: string) => {
     send({ type: 'SELECT_OPTION', next })
@@ -49,30 +57,27 @@ export default function MenuChatWidget() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9999]">
-      {/* Chat Toggle Button */}
+    <div className="fixed bottom-6 right-6 z-[9999] chat-widget-portal">
+      {/* Only minimized button color changes on footer overlap */}
       {!isOpen && (
-        <Button
-          ref={chatBtnRef}
-          onClick={() => setIsOpen(true)}
-          size="lg"
-          className={
-            overFooter
-              ? "rounded-full w-14 h-14 bg-white text-primary border-4 border-accent shadow-2xl hover:bg-accent hover:text-white transition-all duration-300"
-              : "rounded-full w-14 h-14 bg-primary text-black border-4 border-accent shadow-2xl hover:bg-accent hover:text-primary transition-all duration-300"
-          }
-          aria-label={lang === 'hi' ? 'चैट खोलें' : 'Open chat'}
-          style={{
-            boxShadow: '0 8px 32px 0 rgba(10,37,64,0.25), 0 1.5px 6px 0 rgba(0,0,0,0.10)'
-          }}
-        >
-          <MessageCircle className="h-6 w-6" />
-        </Button>
+        <div ref={chatBtnRef}>
+          <Button
+            onClick={() => setIsOpen(true)}
+            size="lg"
+            className={
+              overFooter
+                ? "rounded-full w-14 h-14 bg-white text-primary border-4 border-accent shadow-2xl hover:bg-accent hover:text-white transition-all duration-300"
+                : "rounded-full w-14 h-14 bg-primary text-white border-4 border-accent shadow-2xl hover:bg-accent hover:text-primary transition-all duration-300"
+            }
+            aria-label={lang === 'hi' ? 'चैट खोलें' : 'Open chat'}
+          >
+            <MessageCircle className="h-6 w-6" />
+          </Button>
+        </div>
       )}
-      {/* Chat Window */}
+      {/* Chat Window UI - NO color change here! */}
       {isOpen && (
-        <div className="w-80 sm:w-96 h-[500px] bg-[#181F2A] rounded-2xl shadow-2xl border border-primary flex flex-col animate-fade-in">
-          {/* Header */}
+        <div className="w-80 sm:w-96 h-[500px] bg-[#181F2A] text-white rounded-2xl shadow-2xl border border-primary flex flex-col animate-fade-in">
           <div className="bg-primary text-white p-4 rounded-t-2xl flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="font-bold text-lg">Spintatech Assistant</span>
@@ -106,9 +111,8 @@ export default function MenuChatWidget() {
               </Button>
             </div>
           </div>
-          {/* Chat Area */}
           <div className="flex-1 p-4 overflow-y-auto bg-[#181F2A] rounded-b-2xl">
-            <div className="mb-8 text-base text-white font-medium text-center">
+            <div className="mb-8 text-base font-medium text-center">
               {node?.message?.[lang]}
             </div>
             <div className="flex flex-col gap-3">

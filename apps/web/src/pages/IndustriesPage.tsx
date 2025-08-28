@@ -60,7 +60,7 @@ export default function IndustriesPage() {
                   </p>
                   <ul className="text-left text-gray-700 mb-4 list-disc list-inside">
                     {solutions.map((sol, idx) => (
-                      <li key={idx}>{sol}</li>
+                      <li key={`${ind.key}-solution-${idx}`}>{sol}</li>
                     ))}
                   </ul>
                   <Link

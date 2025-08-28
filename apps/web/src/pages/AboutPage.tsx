@@ -24,7 +24,7 @@ export default function AboutPage() {
           </div>
           <div className="space-y-6 text-lg text-gray-700 mb-10">
             {content.map((para, idx) => (
-              <p key={idx}>{para}</p>
+              <p key={`about-para-${idx}`}>{para}</p>
             ))}
           </div>
           <div className="grid md:grid-cols-2 gap-8">
