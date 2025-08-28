@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import { IContact } from '../models/Contact.js'
+import { IContact } from '../models/Contact'
 
 // Create transporter
 const createTransporter = () => {

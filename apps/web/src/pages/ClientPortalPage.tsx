@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 export default function ClientPortalPage() {
-  const { t, i18n } = useTranslation()
-  const lang = (i18n.language as 'en' | 'hi') || 'en'
+  const { t } = useTranslation()
   const [secret, setSecret] = useState('')
   const [authed, setAuthed] = useState(false)
   const [data, setData] = useState<any>(null)
@@ -58,8 +57,8 @@ export default function ClientPortalPage() {
             <div>
               <h2 className="text-xl font-semibold mb-2">{t('client.projects')}</h2>
               <ul className="list-disc ml-6">
-                {data.projects.map((proj: any, i: number) => (
-                  <li key={i}>
+                {data.projects.map((proj: any) => (
+                  <li key={proj.name}>
                     <span className="font-semibold">{proj.name}</span> — {proj.status}
                   </li>
                 ))}
@@ -68,8 +67,8 @@ export default function ClientPortalPage() {
             <div>
               <h2 className="text-xl font-semibold mb-2">{t('client.files')}</h2>
               <ul className="list-disc ml-6">
-                {data.files.map((file: any, i: number) => (
-                  <li key={i}>
+                {data.files.map((file: any) => (
+                  <li key={file.name}>
                     <a href={file.url} className="text-primary underline" target="_blank" rel="noopener noreferrer">
                       {file.name}
                     </a>

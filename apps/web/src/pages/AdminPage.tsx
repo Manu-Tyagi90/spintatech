@@ -71,8 +71,8 @@ export default function AdminPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {leads.map((lead, i) => (
-                      <tr key={i}>
+                    {leads.map((lead) => (
+                        <tr key={lead._id || lead.email}>
                         <td className="border px-2">{lead.name}</td>
                         <td className="border px-2">{lead.email}</td>
                         <td className="border px-2">{lead.message}</td>
@@ -96,8 +96,8 @@ export default function AdminPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {apps.map((app, i) => (
-                      <tr key={i}>
+                    {apps.map((app) => (
+                      <tr key={app._id || app.email}>
                         <td className="border px-2">{app.name}</td>
                         <td className="border px-2">{app.email}</td>
                         <td className="border px-2">{app.message}</td>

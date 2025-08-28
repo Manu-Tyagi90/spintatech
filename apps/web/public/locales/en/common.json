@@ -49,19 +49,43 @@
     "subtitle": "Specialized solutions for diverse industry verticals",
     "bfsi": {
       "title": "Banking & Financial Services",
-      "description": "Secure fintech solutions and transaction platforms for the financial sector."
+      "description": "Secure fintech solutions and transaction platforms for the financial sector.",
+      "solutions": [
+        "Core banking modernization",
+        "Digital payments integration",
+        "Regulatory compliance automation"
+      ],
+      "details": "We help banks and financial institutions modernize their core systems, implement secure digital payment solutions, and automate compliance with the latest regulations. Our fintech expertise ensures your business stays ahead in a rapidly evolving market."
     },
     "healthcare": {
       "title": "Healthcare & Life Sciences",
-      "description": "Digital health records and compliance solutions for healthcare providers."
+      "description": "Digital health records and compliance solutions for healthcare providers.",
+      "solutions": [
+        "EHR/EMR implementation",
+        "Telemedicine platforms",
+        "HIPAA/GDPR compliance"
+      ],
+      "details": "Our healthcare solutions include EHR/EMR implementation, telemedicine platforms, and compliance with HIPAA/GDPR. We enable providers to deliver better patient care through secure, interoperable digital systems."
     },
     "retail": {
       "title": "Retail & E-commerce",
-      "description": "Omnichannel experiences and supply chain optimization for retail businesses."
+      "description": "Omnichannel experiences and supply chain optimization for retail businesses.",
+      "solutions": [
+        "Inventory management systems",
+        "Personalized marketing",
+        "E-commerce platform integration"
+      ],
+      "details": "We empower retailers with omnichannel commerce, personalized marketing, and real-time inventory management. Our solutions drive sales, improve customer experience, and optimize supply chains."
     },
     "manufacturing": {
       "title": "Manufacturing",
-      "description": "Industrial IoT and smart factory solutions for modern manufacturing."
+      "description": "Industrial IoT and smart factory solutions for modern manufacturing.",
+      "solutions": [
+        "IoT-enabled production monitoring",
+        "Predictive maintenance",
+        "Supply chain analytics"
+      ],
+      "details": "From IoT-enabled production monitoring to predictive maintenance and supply chain analytics, we help manufacturers embrace Industry 4.0 and achieve operational excellence."
     }
   },
   "contact": {
@@ -139,8 +163,21 @@
     "files": "Files"
   },
   "aria": {
-  "getStarted": "Get Started",
-  "learnMore": "Learn More",
-  "openChat": "Open chat"
-}
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "openChat": "Open chat"
+  },
+  "about": {
+    "title": "About Spintatech",
+    "subtitle": "Engineering Digital Excellence for Modern Enterprises",
+    "content": [
+      "Spintatech Services is a technology consulting and solutions company focused on helping organizations accelerate their digital transformation.",
+      "Our team brings deep expertise in cloud, data, AI, cybersecurity, and enterprise solutions.",
+      "We partner with clients across industries to deliver innovative, scalable, and secure technology solutions that drive business growth."
+    ],
+    "mission": "Our Mission",
+    "mission_text": "To empower businesses with cutting-edge technology and expert guidance, enabling them to thrive in a digital-first world.",
+    "vision": "Our Vision",
+    "vision_text": "To be the trusted technology partner for enterprises worldwide."
+  }
 }

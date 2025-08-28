@@ -1,0 +1,121 @@
+[
+  {
+    "id": "root",
+    "message": {
+      "en": "Welcome to Spintatech! How can I help you today?",
+      "hi": "स्पिंटाटेक में आपका स्वागत है! मैं आपकी किस प्रकार सहायता कर सकता हूँ?"
+    },
+    "options": [
+      { "label": { "en": "IT Support", "hi": "आईटी सपोर्ट" }, "next": "it-support" },
+      { "label": { "en": "HR Queries", "hi": "एचआर प्रश्न" }, "next": "hr-queries" },
+      { "label": { "en": "Our Services", "hi": "हमारी सेवाएं" }, "next": "services" },
+      { "label": { "en": "About Us", "hi": "हमारे बारे में" }, "next": "about" }
+    ]
+  },
+  {
+    "id": "it-support",
+    "message": {
+      "en": "What IT issue are you facing?",
+      "hi": "आप किस आईटी समस्या का सामना कर रहे हैं?"
+    },
+    "options": [
+      { "label": { "en": "Password Reset", "hi": "पासवर्ड रीसेट" }, "next": "it-password" },
+      { "label": { "en": "Email Not Working", "hi": "ईमेल काम नहीं कर रहा" }, "next": "it-email" },
+      { "label": { "en": "Back", "hi": "वापस" }, "next": "root" }
+    ]
+  },
+  {
+    "id": "it-password",
+    "message": {
+      "en": "To reset your password, visit the self-service portal or contact IT at it@spintatech.com.",
+      "hi": "पासवर्ड रीसेट करने के लिए, सेल्फ-सर्विस पोर्टल पर जाएं या it@spintatech.com पर संपर्क करें।"
+    },
+    "options": [
+      { "label": { "en": "Back to IT Support", "hi": "आईटी सपोर्ट पर वापस जाएं" }, "next": "it-support" }
+    ]
+  },
+  {
+    "id": "it-email",
+    "message": {
+      "en": "If your email is not working, please check your internet connection or contact IT support.",
+      "hi": "अगर आपका ईमेल काम नहीं कर रहा है, तो कृपया अपनी इंटरनेट कनेक्शन जांचें या आईटी सपोर्ट से संपर्क करें।"
+    },
+    "options": [
+      { "label": { "en": "Back to IT Support", "hi": "आईटी सपोर्ट पर वापस जाएं" }, "next": "it-support" }
+    ]
+  },
+  {
+    "id": "hr-queries",
+    "message": {
+      "en": "What HR query do you have?",
+      "hi": "आपका एचआर से संबंधित कौन सा प्रश्न है?"
+    },
+    "options": [
+      { "label": { "en": "Leave Policy", "hi": "लीव पॉलिसी" }, "next": "hr-leave" },
+      { "label": { "en": "Payroll", "hi": "पेरोल" }, "next": "hr-payroll" },
+      { "label": { "en": "Back", "hi": "वापस" }, "next": "root" }
+    ]
+  },
+  {
+    "id": "hr-leave",
+    "message": {
+      "en": "You can view the leave policy on the HR portal or contact hr@spintatech.com.",
+      "hi": "आप एचआर पोर्टल पर लीव पॉलिसी देख सकते हैं या hr@spintatech.com पर संपर्क करें।"
+    },
+    "options": [
+      { "label": { "en": "Back to HR Queries", "hi": "एचआर प्रश्नों पर वापस जाएं" }, "next": "hr-queries" }
+    ]
+  },
+  {
+    "id": "hr-payroll",
+    "message": {
+      "en": "For payroll queries, please email payroll@spintatech.com.",
+      "hi": "पेरोल से संबंधित प्रश्नों के लिए, कृपया payroll@spintatech.com पर ईमेल करें।"
+    },
+    "options": [
+      { "label": { "en": "Back to HR Queries", "hi": "एचआर प्रश्नों पर वापस जाएं" }, "next": "hr-queries" }
+    ]
+  },
+  {
+    "id": "services",
+    "message": {
+      "en": "We offer Cloud & DevOps, Data & AI, Digital Transformation, Cybersecurity, and Enterprise Solutions. Want details on any?",
+      "hi": "हम क्लाउड और DevOps, डेटा और AI, डिजिटल परिवर्तन, साइबर सुरक्षा, और एंटरप्राइज़ समाधान प्रदान करते हैं। किसके बारे में जानना चाहेंगे?"
+    },
+    "options": [
+      { "label": { "en": "Cloud & DevOps", "hi": "क्लाउड और DevOps" }, "next": "cloud" },
+      { "label": { "en": "Data & AI", "hi": "डेटा और AI" }, "next": "data" },
+      { "label": { "en": "Back", "hi": "वापस" }, "next": "root" }
+    ]
+  },
+  {
+    "id": "cloud",
+    "message": {
+      "en": "Our Cloud & DevOps services include migration, infra management, CI/CD, and more.",
+      "hi": "हमारी क्लाउड और DevOps सेवाओं में माइग्रेशन, इन्फ्रास्ट्रक्चर प्रबंधन, CI/CD आदि शामिल हैं।"
+    },
+    "options": [
+      { "label": { "en": "Back to Services", "hi": "सेवाओं पर वापस जाएं" }, "next": "services" }
+    ]
+  },
+  {
+    "id": "data",
+    "message": {
+      "en": "We provide data analytics, BI, machine learning, and big data solutions.",
+      "hi": "हम डेटा एनालिटिक्स, BI, मशीन लर्निंग, और बिग डेटा समाधान प्रदान करते हैं।"
+    },
+    "options": [
+      { "label": { "en": "Back to Services", "hi": "सेवाओं पर वापस जाएं" }, "next": "services" }
+    ]
+  },
+  {
+    "id": "about",
+    "message": {
+      "en": "Spintatech Services was founded in 2024 and is based in Pune, India.",
+      "hi": "स्पिंटाटेक सर्विसेज की स्थापना 2024 में पुणे, भारत में हुई थी।"
+    },
+    "options": [
+      { "label": { "en": "Back", "hi": "वापस" }, "next": "root" }
+    ]
+  }
+]

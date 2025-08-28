@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import Contact from '../models/Contact.js'
-import { sendContactEmail } from '../utils/emailService.js'
+import { sendContactEmail } from '../utils/emailService'
 import { contactFormSchema } from '@spintatech/shared'
 
 export const createContact = async (req: Request, res: Response) => {
