@@ -50,7 +50,7 @@ export const chatMachine = createMachine({
           {
             id: generateId(),
             text: welcome(ctx.locale),
-            sender: 'bot' as const,
+            sender: 'bot',
             timestamp: new Date()
           }
         ]
@@ -59,14 +59,14 @@ export const chatMachine = createMachine({
         SEND_MESSAGE: {
           target: 'processing',
           actions: assign((ctx: any, evt: any) => {
-            if (!evt || evt.type !== 'SEND_MESSAGE') return {}
+            if (evt.type !== 'SEND_MESSAGE') return {}
             return {
               messages: [
                 ...ctx.messages,
                 {
                   id: generateId(),
                   text: evt.message,
-                  sender: 'user' as const,
+                  sender: 'user',
                   timestamp: new Date()
                 }
               ]
@@ -75,25 +75,23 @@ export const chatMachine = createMachine({
         },
         CHANGE_LOCALE: {
           actions: assign((ctx: any, evt: any) => {
-            if (!evt || evt.type !== 'CHANGE_LOCALE') return {}
+            if (evt.type !== 'CHANGE_LOCALE') return {}
             ctx.intentDetector.setLocale(evt.locale)
             return { locale: evt.locale, intentDetector: ctx.intentDetector }
           })
         },
         RESET_CHAT: {
-          actions: assign((ctx: any, _evt: any) => {
-            return {
-              messages: [
-                {
-                  id: generateId(),
-                  text: welcome(ctx.locale),
-                  sender: 'bot' as const,
-                  timestamp: new Date()
-                }
-              ],
-              currentIntent: null
-            }
-          })
+          actions: assign((ctx: any) => ({
+            messages: [
+              {
+                id: generateId(),
+                text: welcome(ctx.locale),
+                sender: 'bot',
+                timestamp: new Date()
+              }
+            ],
+            currentIntent: null
+          }))
         },
         REQUEST_HUMAN_HANDOFF: 'humanHandoff'
       }
@@ -124,7 +122,7 @@ export const chatMachine = createMachine({
             {
               id: generateId(),
               text: ctx.currentIntent.matchedItem.answer,
-              sender: 'bot' as const,
+              sender: 'bot',
               timestamp: new Date()
             }
           ]
@@ -140,7 +138,7 @@ export const chatMachine = createMachine({
           {
             id: generateId(),
             text: fallback(ctx.locale),
-            sender: 'bot' as const,
+            sender: 'bot',
             timestamp: new Date()
           }
         ]
@@ -158,7 +156,7 @@ export const chatMachine = createMachine({
               ctx.locale === 'hi'
                 ? 'मैं आपको हमारी टीम से जोड़ रहा हूँ। कृपया अपना संपर्क विवरण साझा करें।'
                 : "I'm connecting you with our team. Please share your contact details.",
-            sender: 'bot' as const,
+            sender: 'bot',
             timestamp: new Date()
           }
         ]

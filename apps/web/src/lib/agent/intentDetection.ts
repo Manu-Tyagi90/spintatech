@@ -8,12 +8,9 @@ export interface Intent {
 }
 
 export class IntentDetector {
-  private fuse: Fuse<KnowledgeItem>
-  private locale: 'en' | 'hi'
+  private readonly fuse: Fuse<KnowledgeItem>
   
   constructor(locale: 'en' | 'hi' = 'en') {
-    this.locale = locale
-    
     // Filter knowledge base by locale
     const localizedKB = knowledgeBase.filter(item => item.locale === locale)
     
@@ -41,7 +38,14 @@ export class IntentDetector {
     }
     
     const bestMatch = results[0]
-    const confidence = 1 - (bestMatch.score || 1)
+    if (!bestMatch) {
+      return {
+        category: 'unknown',
+        confidence: 0,
+        matchedItem: null
+      }
+    }
+    const confidence = 1 - (bestMatch.score ?? 1)
     
     return {
       category: bestMatch.item.category,
@@ -51,7 +55,6 @@ export class IntentDetector {
   }
   
   setLocale(locale: 'en' | 'hi') {
-    this.locale = locale
     const localizedKB = knowledgeBase.filter(item => item.locale === locale)
     this.fuse.setCollection(localizedKB)
   }

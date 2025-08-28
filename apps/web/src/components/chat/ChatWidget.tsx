@@ -145,7 +145,7 @@ export default function ChatWidget() {
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyPress} // replaced onKeyPress with onKeyDown
                 placeholder={i18n.language === 'hi' ? 'अपना संदेश टाइप करें...' : 'Type your message...'}
                 className="flex-1"
                 disabled={state.matches('processing')}
