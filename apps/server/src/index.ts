@@ -4,11 +4,11 @@ import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-import contactRoutes from './routes/contact'
-import jobRoutes from './routes/jobs'
-import adminRoutes from './routes/admin'
-import { errorHandler } from './middleware/errorHandler'
-import clientRoutes from './routes/client'
+import contactRoutes from './routes/contact.js' // changed
+import jobRoutes from './routes/jobs.js' // changed
+import adminRoutes from './routes/admin.js' // changed
+import { errorHandler } from './middleware/errorHandler.js' // changed
+import clientRoutes from './routes/client.js' // changed
 import type { Request, Response } from 'express' // added types
 
 

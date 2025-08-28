@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import JobApplication from '../models/JobApplication'
+import JobApplication from '../models/JobApplication.js' // changed
 
 export const createJobApplication = async (req: Request, res: Response) => {
   try {

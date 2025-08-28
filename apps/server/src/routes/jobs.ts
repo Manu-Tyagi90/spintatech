@@ -1,6 +1,6 @@
 import express from 'express'
-import { createJobApplication } from '../controllers/jobController'
-import { asyncHandler } from '../utils/asyncHandler' // added
+import { createJobApplication } from '../controllers/jobController.js'
+import { asyncHandler } from '../utils/asyncHandler.js' // changed
 
 const router = express.Router()
 router.post('/', asyncHandler(createJobApplication))

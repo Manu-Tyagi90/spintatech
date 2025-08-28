@@ -1,6 +1,7 @@
-import express, { Request, Response } from 'express'
-import { clientAuth } from '../middleware/clientAuth'
-import { asyncHandler } from '../utils/asyncHandler' // added
+import express from 'express'
+import { clientAuth } from '../middleware/clientAuth.js' // changed
+import { asyncHandler } from '../utils/asyncHandler.js' // changed
+import type { Request, Response } from 'express'
 
 const router = express.Router()
 

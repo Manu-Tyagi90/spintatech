@@ -1,8 +1,9 @@
-import express, { Request, Response } from 'express'
-import Contact from '../models/Contact'
-import JobApplication from '../models/JobApplication'
-import { adminAuth } from '../middleware/adminAuth'
-import { asyncHandler } from '../utils/asyncHandler'
+import express from 'express'
+import Contact from '../models/Contact.js'
+import JobApplication from '../models/JobApplication.js'
+import { adminAuth } from '../middleware/adminAuth.js'
+import { asyncHandler } from '../utils/asyncHandler.js'
+import type { Request, Response } from 'express'
 
 const router = express.Router()
 
