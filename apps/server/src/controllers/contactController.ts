@@ -4,6 +4,11 @@ import { sendContactEmail } from '../utils/emailService.js'
 import { contactFormSchema } from '@spintatech/shared'
 
 export const createContact = async (req: Request, res: Response) => {
+  // Honeypot check: if the hidden field is filled, it's a bot
+  if (req.body.website) {
+    return res.status(200).json({ success: true }) // Silently ignore spam
+  }
+
   try {
     // Validate request body
     const validatedData = contactFormSchema.parse(req.body)
@@ -18,7 +23,7 @@ export const createContact = async (req: Request, res: Response) => {
     
     // Send notification emails
     try {
-      await sendContactEmail(contact, validatedData.locale)
+      await sendContactEmail(contact, validatedData.locale ?? "en")
     } catch (emailError) {
       console.error('Email sending failed:', emailError)
       // Don't fail the request if email fails
@@ -29,7 +34,7 @@ export const createContact = async (req: Request, res: Response) => {
       message: validatedData.locale === 'hi' 
         ? 'आपका संदेश सफलतापूर्वक भेजा गया है। हम जल्द ही आपसे संपर्क करेंगे।'
         : 'Your message has been sent successfully. We will contact you soon.',
-            data: {
+      data: {
         id: contact._id,
         name: contact.name,
         email: contact.email

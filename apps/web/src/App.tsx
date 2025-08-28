@@ -11,6 +11,12 @@ import AboutPage from './pages/AboutPage'
 import CareersPage from './pages/CareersPage'
 import InsightsPage from './pages/InsightsPage'
 import ContactPage from './pages/ContactPage'
+import CaseStudiesPage from './pages/CaseStudiesPage'
+import CaseStudyPage from './pages/CaseStudyPage'
+import InsightPostPage from './pages/InsightPostPage'
+import AdminPage from './pages/AdminPage'
+import ClientPortalPage from './pages/ClientPortalPage'
+
 
 // Import layout components
 import Header from './components/layout/Header'
@@ -42,7 +48,12 @@ function App() {
             <Route path="/en/about" element={<AboutPage />} />
             <Route path="/en/careers" element={<CareersPage />} />
             <Route path="/en/insights" element={<InsightsPage />} />
+            <Route path="/en/insights/:slug" element={<InsightPostPage />} />
             <Route path="/en/contact" element={<ContactPage />} />
+            <Route path="/en/case-studies" element={<CaseStudiesPage />} />
+            <Route path="/en/case-studies/:slug" element={<CaseStudyPage />} />
+            <Route path="/en/admin" element={<AdminPage />} />
+            <Route path="/en/client-portal" element={<ClientPortalPage />} />
             
             {/* Hindi routes */}
             <Route path="/hi" element={<HomePage />} />
@@ -51,7 +62,12 @@ function App() {
             <Route path="/hi/about" element={<AboutPage />} />
             <Route path="/hi/careers" element={<CareersPage />} />
             <Route path="/hi/insights" element={<InsightsPage />} />
+            <Route path="/hi/insights/:slug" element={<InsightPostPage />} />
             <Route path="/hi/contact" element={<ContactPage />} />
+            <Route path="/hi/case-studies" element={<CaseStudiesPage />} />
+            <Route path="/hi/case-studies/:slug" element={<CaseStudyPage />} />
+            <Route path="/hi/admin" element={<AdminPage />} />
+            <Route path="/hi/client-portal" element={<ClientPortalPage />} />
             
             {/* 404 fallback */}
             <Route path="*" element={<Navigate to="/en" replace />} />

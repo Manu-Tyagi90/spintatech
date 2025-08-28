@@ -16,6 +16,7 @@ export default function Header() {
     { name: t('navigation.home'), href: `/${currentLang}` },
     { name: t('navigation.services'), href: `/${currentLang}/services` },
     { name: t('navigation.industries'), href: `/${currentLang}/industries` },
+    { name: t('navigation.caseStudies'), href: `/${currentLang}/case-studies` }, // <-- Added Case Studies
     { name: t('navigation.about'), href: `/${currentLang}/about` },
     { name: t('navigation.careers'), href: `/${currentLang}/careers` },
     { name: t('navigation.insights'), href: `/${currentLang}/insights` },

@@ -12,38 +12,40 @@ export default function ChatWidget() {
   const [inputValue, setInputValue] = useState('')
   const [state, send] = useMachine(chatMachine)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
-  
+
   useEffect(() => {
     scrollToBottom()
   }, [state.context.messages])
-  
+
   useEffect(() => {
-    // Update locale when i18n language changes
-    send({ type: 'CHANGE_LOCALE', locale: i18n.language as 'en' | 'hi' })
-  }, [i18n.language, send])
-  
+    // Only send CHANGE_LOCALE if the machine is not stopped
+    if (state.status !== 'stopped') {
+      send({ type: 'CHANGE_LOCALE', locale: i18n.language as 'en' | 'hi' })
+    }
+  }, [i18n.language, send, state.status])
+
   const handleSendMessage = () => {
     if (inputValue.trim()) {
       send({ type: 'SEND_MESSAGE', message: inputValue.trim() })
       setInputValue('')
     }
   }
-  
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()
     }
   }
-  
+
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   }
-  
+
   return (
     <>
       {/* Chat Toggle Button */}
@@ -60,7 +62,6 @@ export default function ChatWidget() {
           )}
         </Button>
       </div>
-      
       {/* Chat Window */}
       {isOpen && (
         <div className="fixed bottom-24 right-6 w-96 h-[500px] bg-white rounded-lg shadow-2xl border z-50 flex flex-col">
@@ -86,7 +87,6 @@ export default function ChatWidget() {
               <X className="h-4 w-4" />
             </Button>
           </div>
-          
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {state.context.messages.map((message) => (
@@ -120,7 +120,6 @@ export default function ChatWidget() {
                 </div>
               </div>
             ))}
-            
             {state.matches('processing') && (
               <div className="flex justify-start">
                 <div className="bg-gray-100 rounded-lg p-3">
@@ -129,23 +128,21 @@ export default function ChatWidget() {
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
                 </div>
               </div>
             )}
-            
             <div ref={messagesEndRef} />
           </div>
-          
           {/* Input Area */}
           <div className="border-t p-4">
             <div className="flex space-x-2">
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={handleKeyPress} // replaced onKeyPress with onKeyDown
+                onKeyPress={handleKeyPress}
                 placeholder={i18n.language === 'hi' ? 'अपना संदेश टाइप करें...' : 'Type your message...'}
                 className="flex-1"
                 disabled={state.matches('processing')}
@@ -158,7 +155,6 @@ export default function ChatWidget() {
                 <Send className="h-4 w-4" />
               </Button>
             </div>
-            
             {/* Quick Actions */}
             <div className="flex flex-wrap gap-2 mt-3">
               <Button

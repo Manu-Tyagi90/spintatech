@@ -204,6 +204,15 @@ export default function ContactPage() {
                     <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
                   )}
                 </div>
+
+                {/* Honeypot field for spam protection */}
+                <input
+                  type="text"
+                  {...register('website')}
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
                 
                 {/* Consent */}
                 <div className="flex items-start space-x-3">

@@ -4,8 +4,12 @@ import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-import contactRoutes from './routes/contact.js'
-import { errorHandler } from './middleware/errorHandler.js'
+import contactRoutes from './routes/contact'
+import jobRoutes from './routes/jobs'
+import adminRoutes from './routes/admin'
+import { errorHandler } from './middleware/errorHandler'
+import clientRoutes from './routes/client'
+
 
 dotenv.config()
 
@@ -52,11 +56,13 @@ app.get('/api/health', (req, res) => {
 })
 
 app.use('/api/contact', contactRoutes)
-
+app.use('/api/jobs', jobRoutes)
+app.use('/api/admin', adminRoutes) 
+app.use('/api/client', clientRoutes)
 // Error handling middleware
 app.use(errorHandler)
 
-// 404 handler
+// 404 handler (should be last)
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Route not found' })
 })

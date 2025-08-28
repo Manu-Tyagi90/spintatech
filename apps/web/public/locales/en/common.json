@@ -3,6 +3,7 @@
     "home": "Home",
     "services": "Services",
     "industries": "Industries",
+    "caseStudies": "Case Studies",
     "about": "About",
     "careers": "Careers",
     "insights": "Insights",
@@ -101,5 +102,45 @@
     "error": "Sorry, I encountered an error. Please try again.",
     "fallback": "I'm not sure about that. Would you like me to connect you with our team?",
     "contact_team": "Contact Our Team"
-  }
+  },
+  "careers": {
+    "title": "Careers",
+    "subtitle": "Join Spintatech's team of technology experts. See open positions and apply today.",
+    "apply": "Apply Now",
+    "applying": "Applying...",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Why are you a good fit?",
+      "submit": "Submit Application",
+      "submitting": "Submitting...",
+      "cancel": "Cancel",
+      "success": "Application submitted! We'll contact you soon."
+    }
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "secret": "Admin Secret",
+    "login": "Login",
+    "error": "Unauthorized or error. Please try again.",
+    "leads": "Leads",
+    "applications": "Job Applications",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "date": "Date"
+  },
+  "client": {
+    "title": "Client Portal",
+    "secret": "Client Secret",
+    "login": "Login",
+    "error": "Unauthorized or error. Please try again.",
+    "projects": "Projects",
+    "files": "Files"
+  },
+  "aria": {
+  "getStarted": "Get Started",
+  "learnMore": "Learn More",
+  "openChat": "Open chat"
+}
 }

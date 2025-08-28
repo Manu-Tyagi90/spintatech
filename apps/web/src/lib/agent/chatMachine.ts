@@ -59,7 +59,7 @@ export const chatMachine = createMachine({
         SEND_MESSAGE: {
           target: 'processing',
           actions: assign((ctx: any, evt: any) => {
-            if (evt.type !== 'SEND_MESSAGE') return {}
+            if (!evt || evt.type !== 'SEND_MESSAGE') return {}
             return {
               messages: [
                 ...ctx.messages,
@@ -75,7 +75,7 @@ export const chatMachine = createMachine({
         },
         CHANGE_LOCALE: {
           actions: assign((ctx: any, evt: any) => {
-            if (evt.type !== 'CHANGE_LOCALE') return {}
+            if (!evt || evt.type !== 'CHANGE_LOCALE') return {}
             ctx.intentDetector.setLocale(evt.locale)
             return { locale: evt.locale, intentDetector: ctx.intentDetector }
           })
